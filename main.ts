@@ -1,13 +1,17 @@
-import { rest } from "msw";
+import { PathParams, rest } from "msw";
 
-const goodHandler = rest.get(
+type RequestBody = {};
+type Params = PathParams<"login">;
+type Response = { login: string | readonly string[] };
+
+const goodHandler = rest.get<RequestBody, Params, Response>(
   "https://api.github.com/user/:login",
   (req, res, ctx) => {
     return res(ctx.json({ login: req.params.login }));
   }
 );
 
-const badHandler = rest.get(
+const badHandler = rest.get<RequestBody, Params, Response>(
   "https://api.github.com/user/:login",
   (req, res, ctx) => {}
 );
