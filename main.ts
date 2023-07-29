@@ -4,6 +4,7 @@ type RequestBody = {};
 type Params = PathParams<"login">;
 type Response = { login: string | readonly string[] };
 
+// 👍
 const goodHandler = rest.get<RequestBody, Params, Response>(
   "https://api.github.com/user/:login",
   (req, res, ctx) => {
@@ -11,6 +12,7 @@ const goodHandler = rest.get<RequestBody, Params, Response>(
   }
 );
 
+// 👎 a resolver is expected
 const badHandler = rest.get<RequestBody, Params, Response>(
   "https://api.github.com/user/:login",
   (req, res, ctx) => {}
